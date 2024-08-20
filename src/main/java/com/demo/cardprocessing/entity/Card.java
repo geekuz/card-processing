@@ -21,11 +21,15 @@ public class Card implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserEntity userEntity;
 
-    private String status;
     private Double balance;
-    private String currency;
 
-    // Getters and Setters
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Currency currency;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
 }

@@ -1,7 +1,9 @@
 package com.demo.cardprocessing.service;
 
 import com.demo.cardprocessing.entity.Card;
-import com.demo.cardprocessing.entity.User;
+import com.demo.cardprocessing.entity.Currency;
+import com.demo.cardprocessing.entity.Status;
+import com.demo.cardprocessing.entity.UserEntity;
 import com.demo.cardprocessing.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +15,18 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public Card createCard(User user, String currency) {
+    public Card createCard(UserEntity userEntity, String currency) {
         Card card = new Card();
-        card.setUser(user);
-        card.setCurrency(currency);
+        card.setUserEntity(userEntity);
+        card.setCurrency(Currency.UZS);
         card.setBalance(0.0);
-        card.setStatus("ACTIVE");
+        card.setStatus(Status.ACTIVE);
         return cardRepository.save(card);
     }
 
     public void blockCard(Long cardId) {
         Card card = cardRepository.findById(cardId).orElseThrow();
-        card.setStatus("BLOCKED");
+        card.setStatus(Status.BLOCKED);
         cardRepository.save(card);
     }
 
